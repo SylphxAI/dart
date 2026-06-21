@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/dart",
+    "name": "Sylphx Dart",
+    "lifecycle": "active",
+    "layer": "tooling",
+    "summary": "Shared Dart and Flutter guidelines, analysis configuration, lint package scaffold, and Melos validation for Sylphx Dart projects.",
+    "goals": [
+      "Provide repo-owned Dart and Flutter guidelines under docs/.",
+      "Own the sylph_lints shared lint package scaffold and package metadata.",
+      "Keep Melos bootstrap, formatting, analysis, and test guidance coherent for Dart repositories that intentionally consume this surface."
+    ],
+    "nonGoals": [
+      "Own every downstream Dart application, Flutter product, app-specific analysis exception, or release process.",
+      "Own enterprise doctrine or package release infrastructure.",
+      "Own product UI, app workflow, deployment, or customer-specific behavior for repositories that consume the guidance."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "dart-guidelines",
+        "description": "The shared Dart and Flutter development guidelines, documentation, root analysis configuration, Melos workspace, and validation expectations in this repository."
+      },
+      {
+        "name": "sylph-lints-package-scaffold",
+        "description": "The packages/sylph_lints shared lint package scaffold, package metadata, README, lockfile, and future reusable lint configuration surface."
+      }
+    ],
+    "doesNotOwn": [
+      "Downstream Dart or Flutter application code, app-specific analyzer exceptions, product UI decisions, app release policy, or customer workflows.",
+      "Every consumer repository's CI workflow, branch protection, release process, or package manager policy.",
+      "Enterprise engineering doctrine and manifest schema owned by SylphxAI/doctrine."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "documentation",
+        "name": "Dart and Flutter guidelines",
+        "location": "docs/"
+      },
+      {
+        "type": "manifest",
+        "name": "Melos workspace and root package metadata",
+        "location": "melos.yaml and pubspec.yaml"
+      },
+      {
+        "type": "package-export",
+        "name": "sylph_lints package scaffold",
+        "location": "packages/sylph_lints/"
+      },
+      {
+        "type": "workflow",
+        "name": "Dart CI workflow",
+        "location": ".github/workflows/ci.yml"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "project manifest schema and engineering doctrine",
+        "direction": "peer-public"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not encode a consuming Flutter product's UI, routing, deployment, or customer-specific analyzer exceptions into the shared guidance surface.",
+      "Do not make consumers depend on unpublished internal paths when a package export or documented configuration should exist.",
+      "Do not fork doctrine standards into this repository."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "docs/",
+      "status": "present"
+    },
+    "catalog": {
+      "path": ".doctrine/project.json",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "docs/ci_cd.md",
+      "status": "present"
+    },
+    "generatedReferences": {
+      "path": "packages/sylph_lints/README.md",
+      "status": "present"
+    }
+  },
+  "delivery": {
+    "ciModel": "legacy-ci",
+    "requiredContexts": [],
+    "deployPath": "Pull requests, pushes, and merge queue refs run Dart CI with Melos bootstrap, format, analyze, and tests. No package publication workflow is present at this baseline.",
+    "productionProof": "Passing Dart CI plus representative consumer validation before shared analysis or lint package changes are treated as broadly adoptable.",
+    "recoveryClass": "source-revertable"
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "required-contexts-not-recorded",
+        "description": "Dart CI exists and supports merge_group, but branch-protection required contexts are not recorded in this manifest baseline.",
+        "owner": "SylphxAI/dart",
+        "target": "repo-local branch protection audit"
+      },
+      {
+        "id": "legacy-sylphlab-wording",
+        "description": "README and package metadata still reference SylphLab/playbook naming; reconcile brand and doctrine links before full adoption.",
+        "owner": "SylphxAI/dart",
+        "target": "next docs cleanup"
+      },
+      {
+        "id": "consumer-compatibility-proof",
+        "description": "Shared analyzer/lint changes should be validated against representative consumer repositories before full adoption.",
+        "owner": "SylphxAI/dart",
+        "target": "next shared config package change"
+      }
+    ]
+  }
+}
