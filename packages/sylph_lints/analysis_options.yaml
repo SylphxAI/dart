@@ -19,7 +19,6 @@ linter:
     - prefer_final_locals
     - prefer_const_constructors
     - avoid_dynamic_calls
-    - avoid_returning_null_for_future
     - require_trailing_commas
     - prefer_single_quotes # Example preference
     - unnecessary_parenthesis

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/dart",
+    "name": "Dart",
+    "lifecycle": "active",
+    "layer": "foundation",
+    "summary": "The Dart repository is an active shared foundation for SylphLab Dart and Flutter guidelines, Melos validation, and the sylph_lints package source.",
+    "goals": [
+      "Own shared Dart and Flutter guidance under docs/.",
+      "Own the sylph_lints package source and Melos validation workflow.",
+      "Keep shared lint/style/testing rules tenant-neutral and safe for downstream projects to adopt."
+    ],
+    "nonGoals": [
+      "Own downstream application behavior, app-store releases, or product-specific Flutter architecture.",
+      "Publish Dart packages until package release intent, publisher identity, and proof are documented.",
+      "Encode customer-specific rules into shared Dart guidelines."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "dart-guidelines",
+        "description": "Shared Dart and Flutter setup, style, quality, testing, documentation, and architecture guidelines under docs/."
+      },
+      {
+        "name": "sylph-lints-source",
+        "description": "The sylph_lints package source, pubspec metadata, and Melos validation workflow."
+      }
+    ],
+    "doesNotOwn": [
+      "Downstream application behavior, app-store releases, or product-specific Flutter architecture.",
+      "Enterprise doctrine, shared runner policy, or org-wide package release control.",
+      "Customer-specific lint/style rules unless they are generalized through documented shared guidance."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "documentation",
+        "name": "Dart and Flutter guidelines",
+        "location": "docs/"
+      },
+      {
+        "type": "package-export",
+        "name": "sylph_lints package source",
+        "location": "packages/sylph_lints/pubspec.yaml"
+      },
+      {
+        "type": "manifest",
+        "name": "Melos workspace",
+        "location": "melos.yaml"
+      },
+      {
+        "type": "status-context",
+        "name": "Required branch context",
+        "location": "build"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "enterprise engineering doctrine",
+        "direction": "downward"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not add app-specific or customer-specific rules to shared Dart guidelines without a tenant-neutral rationale.",
+      "Do not publish sylph_lints until release intent, publisher identity, and publish proof are documented.",
+      "Do not rely on undocumented downstream assumptions when changing shared lint or style guidance."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "docs/",
+      "status": "present"
+    },
+    "catalog": {
+      "path": "PROJECT.md",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "docs/ci_cd.md",
+      "status": "present"
+    },
+    "generatedReferences": {
+      "path": ".dart_tool/",
+      "status": "generated"
+    }
+  },
+  "delivery": {
+    "ciModel": "legacy-ci",
+    "requiredContexts": [
+      "build"
+    ],
+    "deployPath": "No deploy or package publish workflow is declared; CI validates formatting, analysis, and tests through Dart/Melos.",
+    "productionProof": "Required CI context plus downstream package/guideline adoption evidence when consumers update.",
+    "recoveryClass": "source-revertable"
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "central-admission",
+        "description": "CI is repo-local legacy GitHub Actions; migrate to central admission or stable status fan-in when the fleet workflow is ready.",
+        "owner": "SylphxAI/dart",
+        "target": "before full doctrine adoption"
+      },
+      {
+        "id": "package-publish-control",
+        "description": "Document whether sylph_lints should publish, and if so add release intent, publisher identity, required contexts, and publish proof.",
+        "owner": "SylphxAI/dart",
+        "target": "before publishing any Dart package"
+      }
+    ]
+  }
+}
